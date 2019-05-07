@@ -15,4 +15,8 @@ def empty?
    end
  end
 
+ def place_ship(ship)
+  @ship = ship
+end
+
 end
