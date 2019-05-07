@@ -30,4 +30,15 @@ def empty?
   end
   end
 
+  def render
+ if @fired_upon == false
+   @coordinate = "."
+ elsif @fired_upon == true && empty? == true
+   @coordinate = "M"
+ elsif @fired_upon == true && empty? == false && @ship.sunk? == false
+   @coordinate = "H"
+elsif @fired_upon == true && empty? == false && @ship.sunk? == true
+   @coordinate = "X"
+ end
+end
 end
