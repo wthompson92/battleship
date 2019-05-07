@@ -14,8 +14,6 @@ class Ship
   def sunk?
     if @hit_counter >= @health
       @sunk = true
-    else
-      @sunk
     end
     @sunk
   end
