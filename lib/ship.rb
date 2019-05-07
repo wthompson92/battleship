@@ -11,4 +11,17 @@ class Ship
     @hit_counter = 0
   end
 
+  def sunk?
+    if @hit_counter >= @health
+      @sunk = true
+    else
+      @sunk
+    end
+    @sunk
+  end
+
+  def hit
+    @health -= 1
+    @hit_counter += 1
+  end
 end
