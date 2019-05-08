@@ -1,5 +1,6 @@
 require './lib/ship'
 require './lib/cell'
+
 class Board
   attr_reader :cells
 
@@ -29,13 +30,13 @@ end
    @keys.include?(coordinate)
 end
 
-  def valid_placement?(ship, coordinates)
-    coordinates.all? do |coordinate|
-    if   @keys.include?(coordinate.to_s) && coordinates.length == ship.length
-      true
-    end
-    end
-  end
-  end
-
- 
+def valid_placement?(ship, coordinates)
+ if coordinates.count == ship.length && coordinates.all? do |coordinate|
+   valid_coordinate?(coordinate)
+   end
+   true
+ else
+   false
+ end
+ end
+end
