@@ -27,14 +27,11 @@ class Board
   @cells.keys
 end
 
-
-
-
   def valid_coordinate?(coordinate)
    @keys.include?(coordinate)
 end
 
-  def valid_placement(ship, coordinates)
+  def valid_placement?(ship, coordinates)
     coordinates.all? do |coordinate|
     if   @keys.include?(coordinate.to_s) && coordinates.length == ship.length
       true
@@ -43,10 +40,9 @@ end
 end
 end
 
-
-board = Board.new
-cruiser = Ship.new("Cruiser", 3)
+ board = Board.new
+ cruiser = Ship.new("Cruiser", 3)
  board.create_board
  board.valid_coordinate?("A9")
 
-p board.valid_placement(cruiser, ["A1", "A2", "A3"])
+p board.valid_placement?(cruiser, ["A1", "A2", "A3"])

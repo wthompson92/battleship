@@ -46,7 +46,7 @@ class BoardTest < Minitest::Test
   end
 
   def test_num_of_coordinates_match_length
-  
+
     actual = @board.valid_placement?(@cruiser, ["A1", "A2"])
     refute actual
 
@@ -112,7 +112,7 @@ class BoardTest < Minitest::Test
     end
 
     def test_overlapping_ships_are_not_allowed
-      skip
+skip
       @board.place(cruiser, ["A1", "A2", "A3"])
       expected = false
       actual = @board.valid_placement?(submarine, ["A1", "B1"])
