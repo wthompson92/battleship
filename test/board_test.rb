@@ -46,8 +46,7 @@ class BoardTest < Minitest::Test
   end
 
   def test_num_of_coordinates_match_length
-    skip
-
+  
     actual = @board.valid_placement?(@cruiser, ["A1", "A2"])
     refute actual
 
