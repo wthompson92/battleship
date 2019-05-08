@@ -1,5 +1,6 @@
 require './lib/ship'
 require './lib/cell'
+require 'pry'
 
 class Board
   attr_reader :cells
@@ -31,6 +32,7 @@ end
 end
 
 def valid_placement?(ship, coordinates)
+  letters = get_letters(coordinates)
  if coordinates.count == ship.length && coordinates.all? do |coordinate|
    valid_coordinate?(coordinate)
    end
@@ -38,5 +40,14 @@ def valid_placement?(ship, coordinates)
  else
    false
  end
+end
+
+def get_letters(letters)
+    letters.map do |letter|
+      letter[0]
+end
+
  end
+
+ binding.pry
 end
