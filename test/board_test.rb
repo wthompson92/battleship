@@ -26,7 +26,9 @@ class BoardTest < Minitest::Test
   end
 
   def test_for_valid_coordinates
-    skip
+
+      @board.create_board
+
     actual = @board.valid_coordinate?("A1")
     assert actual
 
@@ -111,6 +113,7 @@ class BoardTest < Minitest::Test
     end
 
     def test_overlapping_ships_are_not_allowed
+      skip
       @board.place(cruiser, ["A1", "A2", "A3"])
       expected = false
       actual = @board.valid_placement?(submarine, ["A1", "B1"])
@@ -118,6 +121,7 @@ class BoardTest < Minitest::Test
     end
 
     def test_the_board_can_render
+      skip
       @board.place(cruiser, ["A1", "A2", "A3"])
       expected = "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n"
       actual = @board.render
