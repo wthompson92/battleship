@@ -1,7 +1,5 @@
 class Ship
-  attr_reader :name,
-              :health,
-              :length
+  attr_reader :name, :health, :length #three attributes that we wanna know about and view 
 
   def initialize(name, length)
       @name = name
