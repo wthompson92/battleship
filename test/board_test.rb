@@ -11,14 +11,14 @@ class BoardTest < Minitest::Test
     @submarine = Ship.new("Submarine", 2)
   end
 
-  def test_it_exists
+  def test_the_board_exists
 
     expected = Board
     actual = @board
     assert_instance_of expected, actual
   end
 
-  def test_it_has_cells
+  def test_the_board_has_cells
 
     expected = Hash
     actual = @board.cells.class
@@ -88,8 +88,12 @@ class BoardTest < Minitest::Test
     assert actual
   end
 
-  def test_the_place_method
-    #place will take 1 parameter, an array
-    @@cruiser, ["A1", "A2", "A3"]
+  def test_ships_can_be_placed_
+    #place method will take 2 parameter, a ship and an array of coordinates
+    board.place(@cruiser, ["A1", "A2", "A3"])
+    cell_1 = board.cells["A1"]
+    actual = @cruiser
+    expected = cell_1.ship
     end
+
 end
