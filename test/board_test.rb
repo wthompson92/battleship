@@ -88,12 +88,21 @@ class BoardTest < Minitest::Test
     assert actual
   end
 
-  def test_ships_can_be_placed_
+  def test_ships_can_be_placed
+    skip
     #place method will take 2 parameter, a ship and an array of coordinates
     board.place(@cruiser, ["A1", "A2", "A3"])
     cell_1 = board.cells["A1"]
-    actual = @cruiser
-    expected = cell_1.ship
+    cell_2 = board.cells["A2"]
+    cell_3 = board.cells["A3"]
+      actual = @cruiser
+      expected = cell_1.ship
+      actual = @cruiser
+      expected = cell_2.ship
+      actual = @cruiser
+      expected = cell_3.ship
+      actual = true
+      expected = cell_3.ship == cell_2.ship
     end
 
 end
