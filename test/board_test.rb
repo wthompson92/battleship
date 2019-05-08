@@ -92,22 +92,38 @@ class BoardTest < Minitest::Test
     skip
     #place method will take 2 parameter, a ship and an array of coordinates
     board.place(@cruiser, ["A1", "A2", "A3"])
-    cell_1 = board.cells["A1"]
-    cell_2 = board.cells["A2"]
-    cell_3 = board.cells["A3"]
-      actual = @cruiser
+    cell_1 = @board.cells["A1"]
+    cell_2 = @board.cells["A2"]
+    cell_3 = @board.cells["A3"]
       expected = cell_1.ship
       actual = @cruiser
+        assert_equal expected, actual
+      actual = @cruiser
       expected = cell_2.ship
+        assert_equal expected, actual
       actual = @cruiser
       expected = cell_3.ship
+        assert assert_equal expected, actual
       actual = true
       expected = cell_3.ship == cell_2.ship
+        assert_equal expected, actual
+
     end
 
     def test_overlapping_ships_are_not_allowed
-      board.place(cruiser, ["A1", "A2", "A3"])
+      @board.place(cruiser, ["A1", "A2", "A3"])
       expected = false
-      actual = board.valid_placement?(submarine, ["A1", "B1"])
-    end 
+      actual = @board.valid_placement?(submarine, ["A1", "B1"])
+      assert_equal expected, actual
     end
+
+    def test_the_board_can_render
+      @board.place(cruiser, ["A1", "A2", "A3"])
+      expected = "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n"
+      actual = @board.render
+      assert_equal expected, actual
+
+      expected = "  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n"
+      actual = board.render(true)
+    end
+  end
