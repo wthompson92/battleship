@@ -3,21 +3,20 @@ class Board
 
   def initialize
     @size = 16
-    @cells = Hash.new
-    @row = ("a".."d")
+    @cells = Hash.new(0)
+    @row = ("A".."D")
     @column = (1..4)
     @num = 0
 
   end
 
   def create_board
-    @row.map do |x|
-    (1..4).to_a.map do |i|
-      x + i.to_s
+    @row.map do |letter|
+    @column.map do |number|
+      @cells.store((letter + number.to_s), nil)
       end
     end
   end
-
 
 
 
@@ -29,4 +28,5 @@ end
 
 
 board = Board.new
+#p @cells.class
 p board.create_board
