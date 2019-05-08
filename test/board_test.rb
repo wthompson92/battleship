@@ -105,4 +105,9 @@ class BoardTest < Minitest::Test
       expected = cell_3.ship == cell_2.ship
     end
 
-end
+    def test_overlapping_ships_are_not_allowed
+      board.place(cruiser, ["A1", "A2", "A3"])
+      expected = false
+      actual = board.valid_placement?(submarine, ["A1", "B1"])
+    end 
+    end
