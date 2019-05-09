@@ -3,6 +3,7 @@ require 'minitest/pride'
 require './lib/cell'
 require './lib/board'
 require './lib/ship'
+require 'pry'
 class BoardTest < Minitest::Test
 
   def setup
@@ -47,11 +48,16 @@ class BoardTest < Minitest::Test
 
   def test_num_of_coordinates_match_length
 
+    @board.create_board
+
     actual = @board.valid_placement?(@cruiser, ["A1", "A2"])
     refute actual
 
     actual = @board.valid_placement?(@submarine, ["A2", "A3", "A4"])
     refute actual
+
+    actual = @board.valid_placement?(@submarine, ["A1", "A2"])
+    assert_equal true, @board.valid_placement?(@submarine, ["A1", "A2"])
  end
 
   def test_coordinates_are_consecutive
