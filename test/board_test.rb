@@ -73,9 +73,9 @@ class BoardTest < Minitest::Test
     actual = @board.valid_placement?(@submarine, ["C1", "B1"])
     refute actual
   end
- binding.pry
+ #binding.pry
   def test_placements_are_not_diagonal
-    skip
+
     actual = @board.valid_placement?(@cruiser, ["A1", "B2", "C3"])
     refute actual
 
