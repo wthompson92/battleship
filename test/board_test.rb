@@ -13,22 +13,21 @@ class BoardTest < Minitest::Test
   end
 
   def test_the_board_exists
-
     expected = Board
     actual = @board
     assert_instance_of expected, actual
   end
 
   def test_the_board_has_cells
-
+#can you explain this one to me and do you think we should test that it has 16 elements?
+#should we also test that the values are objects? do we have to do that?
     expected = Hash
     actual = @board.cells.class
     assert_equal expected, actual
   end
 
   def test_for_valid_coordinates
-
-      @board.create_board
+    @board.create_board
 
     actual = @board.valid_coordinate?("A1")
     assert actual
@@ -47,7 +46,6 @@ class BoardTest < Minitest::Test
   end
 
   def test_num_of_coordinates_match_length
-
     @board.create_board
 
     actual = @board.valid_placement?(@cruiser, ["A1", "A2"])
@@ -75,7 +73,7 @@ class BoardTest < Minitest::Test
     actual = @board.valid_placement?(@submarine, ["C1", "B1"])
     refute actual
   end
-
+ binding.pry
   def test_placements_are_not_diagonal
     skip
     actual = @board.valid_placement?(@cruiser, ["A1", "B2", "C3"])
@@ -136,3 +134,5 @@ skip
       actual = board.render(true)
     end
   end
+
+  #i think we have to use ordinal values to pass the consecutive test
