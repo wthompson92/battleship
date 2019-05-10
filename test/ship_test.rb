@@ -7,6 +7,7 @@ class ShipTest < Minitest::Test
 
   def setup
     @cruiser = Ship.new("Cruiser", 3)
+    @submarine = Ship.new("Submarine", 2)
   end
 
   def test_ship_exists
@@ -59,7 +60,7 @@ class ShipTest < Minitest::Test
   def test_ship_can_be_sunk
     @cruiser.hit
     @cruiser.hit
-    @cruiser.hit #won't work when i do @cruiser.hit * 3 
+    @cruiser.hit #won't work when i do @cruiser.hit * 3
     actual = @cruiser.sunk?
 
     assert_equal true, actual

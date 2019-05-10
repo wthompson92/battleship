@@ -10,6 +10,7 @@ class BoardTest < Minitest::Test
     @board = Board.new
     @cruiser = Ship.new("Cruiser", 3)
     @submarine = Ship.new("Submarine", 2)
+
   end
 
   def test_the_board_exists
@@ -47,6 +48,8 @@ class BoardTest < Minitest::Test
 
   def test_num_of_coordinates_match_length
     @board.create_board
+    @cruiser
+    @submarine
 
     actual = @board.valid_placement?(@cruiser, ["A1", "A2"])
     refute actual
@@ -55,9 +58,8 @@ class BoardTest < Minitest::Test
     refute actual
 
     actual = @board.valid_placement?(@submarine, ["A1", "A2"])
-    assert_equal true, @board.valid_placement?(@submarine, ["A1", "A2"])
- end
-
+    assert_equal true, actual
+  end
   def test_coordinates_are_consecutive
     skip
 
@@ -75,17 +77,15 @@ class BoardTest < Minitest::Test
   end
  #binding.pry
   def test_placements_are_not_diagonal
-
     actual = @board.valid_placement?(@cruiser, ["A1", "B2", "C3"])
     refute actual
-
 
     actual = @board.valid_placement?(@submarine, ["C2", "D3"])
     refute actual
   end
 
   def test_that_there_are_valid_coordinates
-    skip
+
     actual = @board.valid_placement?(@submarine, ["A1", "A2"])
     assert actual
 
@@ -100,39 +100,26 @@ class BoardTest < Minitest::Test
     cell_1 = @board.cells["A1"]
     cell_2 = @board.cells["A2"]
     cell_3 = @board.cells["A3"]
-      expected = cell_1.ship
-      actual = @cruiser
-        assert_equal expected, actual
-      actual = @cruiser
-      expected = cell_2.ship
-        assert_equal expected, actual
-      actual = @cruiser
-      expected = cell_3.ship
-        assert assert_equal expected, actual
-      actual = true
-      expected = cell_3.ship == cell_2.ship
-        assert_equal expected, actual
 
+    assert_equal @cruiser, cell_1.ship
+    assert_equal @cruiser, cell_2.ship
+    assert assert_equal @cruiser, cell_3.ship
+    assert_equal true, cell_3.ship == cell_2.ship #i'm not sure I understand this line and what we're asserting
     end
 
-    def test_overlapping_ships_are_not_allowed
-skip
-      @board.place(cruiser, ["A1", "A2", "A3"])
-      expected = false
-      actual = @board.valid_placement?(submarine, ["A1", "B1"])
-      assert_equal expected, actual
-    end
+  def test_overlapping_ships_are_not_allowed
+    skip
 
-    def test_the_board_can_render
-      skip
-      @board.place(cruiser, ["A1", "A2", "A3"])
-      expected = "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n"
-      actual = @board.render
-      assert_equal expected, actual
-
-      expected = "  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n"
-      actual = board.render(true)
-    end
+    @board.place(cruiser, ["A1", "A2", "A3"])
+    assert_equal false, @board.valid_placement?(submarine, ["A1", "B1"])
   end
 
-  #i think we have to use ordinal values to pass the consecutive test
+  def test_the_board_can_render
+    skip
+    @board.place(cruiser, ["A1", "A2", "A3"])
+    assert_equal "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n", @board.render
+
+      expected = "  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n" #I'm not sure what we're testing here.
+      actual = board.render(true)
+  end
+end

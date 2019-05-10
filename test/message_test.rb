@@ -26,4 +26,6 @@ def test_user_input
   assert_equal "Leaving BattleShip", @message.user_input("q")
   assert_equal "Invalid input.", @message.user_input("r")
 end
+
+
 end
