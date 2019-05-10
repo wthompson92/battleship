@@ -129,13 +129,14 @@ class BoardTest < Minitest::Test
 
   def test_the_board_can_render
     skip
+    @board.create_board
     expected = "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n"
     actual = @board.render
     assert_equal expected, actual
 
     @board.place(@cruiser, ["A1", "A2", "A3"])
     expected = "  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n"
-    actual = board.render(true)
+    actual = @board.render(true)
     assert_equal expected, actual
-  end 
+  end
   end

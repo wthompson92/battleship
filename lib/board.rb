@@ -36,32 +36,24 @@ class Board
   end
 
   def get_letters(placements) #passing thru an array
-    letters = []
-    placements.each { |placement|letters << placement[0] } #getting our letter
-    letters
+    letters = placements.map { |placement| placement[0] } #getting our letter
   end
 
   def get_numbers(placements) #passing thru an array
-    numbers = []
-    placements.each { |placement|numbers << placement[1] }#getting our number
-    numbers
+    numbers = placements.map { |placement| placement[1] }#getting our number
   end
 
   def letters_consecutive?(letters) #(array of strings passed from line 60)
-    if (letters.count == 3) && (letters.last.ord - letters.first.ord == 2)
-      return true
-    elsif (letters.count == 2) && (letters.last.ord - letters.first.ord == 1)
-      return true
+    if (letters.count == 3) && (letters.last.ord - letters.first.ord == 2) then true
+    elsif (letters.count == 2) && (letters.last.ord - letters.first.ord == 1) then true
     else
       return false
     end
   end
 
   def numbers_consecutive?(numbers) #(array of strings passed from line 60)
-    if (numbers.count == 3) && (numbers.last.to_i - numbers.first.to_i == 2)
-      return true
-    elsif (numbers.count == 2) && (numbers.last.to_i - numbers.first.to_i == 1)
-      return true
+    if (numbers.count == 3) && (numbers.last.to_i - numbers.first.to_i == 2) then true
+    elsif (numbers.count == 2) && (numbers.last.to_i - numbers.first.to_i == 1) then  true
     else
       return false
     end
@@ -69,7 +61,7 @@ class Board
 
   def place(ship, placements)
     if valid_placement?(ship, placements)
-      then placements.each {|placement| @cells[placement].place_ship(ship)}
+       then placements.each {|placement| @cells[placement].place_ship(ship)}
     end
   end
 end
