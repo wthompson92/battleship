@@ -128,7 +128,7 @@ class BoardTest < Minitest::Test
   end
 
   def test_the_board_can_render
-    skip
+    
     @board.create_board
     expected = "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n"
     actual = @board.render
