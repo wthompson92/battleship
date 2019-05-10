@@ -16,7 +16,6 @@ class ShipTest < Minitest::Test
   end
 
   def test_it_has_a_name
-
     expected = "Cruiser"
     actual = @cruiser.name
 
@@ -24,7 +23,6 @@ class ShipTest < Minitest::Test
   end
 
   def test_it_has_a_length
-
     expected = 3
     actual = @cruiser.length
 
@@ -32,7 +30,6 @@ class ShipTest < Minitest::Test
   end
 
   def test_it_has_health
-
     expected = 3
     actual = @cruiser.health
 
@@ -40,7 +37,6 @@ class ShipTest < Minitest::Test
   end
 
   def test_if_it_sunk
-
     expected = false
     actual = @cruiser.sunk?
 
@@ -48,7 +44,6 @@ class ShipTest < Minitest::Test
   end
 
   def test_it_has_been_hit
-
     @cruiser.hit
     expected = 2
     actual = @cruiser.health
@@ -63,12 +58,10 @@ class ShipTest < Minitest::Test
   end
 
   def test_it_can_be_sunk
-
     @cruiser.hit
     @cruiser.hit
     @cruiser.hit
     actual = @cruiser.sunk?
     assert actual
   end
-
 end
