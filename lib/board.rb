@@ -9,30 +9,24 @@ class Board
     @keys = []
     @row = ("A".."D")
     @column = (1..4)
-    @num = 0
     @cells = {}
-    @ship = nil
+    @ships = []
 
   end
 
   def create_board
-    @row.map do |letter|
-    @column.map do |number|
-    @keys << (letter + number.to_s)
-     end
-     end
-   @keys.each do |key|
-   @cells[key] = Cell.new(key.to_s)
-    end
-   @cells.keys
-  end
+    @row.map {|letter|
+    @column.map {|number| @keys << (letter + number.to_s)
+    @keys.map {|key| @cells[key] = Cell.new(key)}}}
+    @cells
+end
 
   def valid_coordinate?(input)
    @keys.include?(input)
   end
 
   def valid_placement?(ship, placements)
-
+    create_board
     letters = get_letters(placements)
     letters_consecutive?(letters)
 
@@ -40,17 +34,13 @@ class Board
     numbers_consecutive?(numbers)
 
     return false if placements.count != ship.length
-    return false if placements.any? do |placement|
-      !valid_coordinate?(placement)
+    return false if placements.any? {|placement| !valid_coordinate?(placement)}
+    return false if placements.any? {|placement| !@cells[placement].empty?}
+    return true if letters.uniq.count == 1 && numbers_consecutive?(numbers)
+    return true if numbers.uniq.count == 1 && letters_consecutive?(letters)
+
     end
 
-    if letters.uniq.count == 1 && numbers_consecutive?(numbers) == true
-      true
-    elsif numbers.uniq.count == 1 && letters_consecutive?(letters) == true
-        true
-    else
-      false
-    end
 
 def get_letters(placements) #passing thru an array
  letters = []
@@ -69,26 +59,28 @@ def get_numbers(placements) #passing thru an array
 end
 
 def letters_consecutive?(letters) #(array of strings passed from line 60)
-     if letters.count == 3 && (letters.last.ord - letters.first.ord) == 2
-       true
-     elsif letters.count == 2 && (letters.last.ord - letters.first.ord) == 1
+     if (letters.count == 3) && (letters.last.ord - letters.first.ord == 2)
+       return true
+     elsif (letters.count == 2) && (letters.last.ord - letters.first.ord == 1)
        return true
      else
        return false
      end
-end 
+end
 end
 
 def numbers_consecutive?(numbers) #(array of strings passed from line 60)
-     if numbers.count == 3 && (numbers.last.to_i - numbers.first.to_i) == 2
+     if (numbers.count == 3) && (numbers.last.to_i - numbers.first.to_i == 2)
        true
-     elsif numbers.count == 2 && (numbers.last.to_i - numbers.first.to_i) == 1
+     elsif (numbers.count == 2) && (numbers.last.to_i - numbers.first.to_i == 1)
        return true
      else
        return false
      end
- end
+  def place(ship, placements)
+    if valid_placement?(ship, placements)
+      placements.each { |placement| @cells[placement].place_ship(ship) }
+        @ships << ship
+    end
+  end
 end
-ship = Ship.new("Cruiser", 3)
-board = Board.new
-p board.valid_placement?(ship, ["A1", "A2", "A3"])

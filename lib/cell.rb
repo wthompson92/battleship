@@ -8,12 +8,8 @@ def initialize(coordinate)
 end
 
 def empty?
-   if @ship == nil
-     true
-   else
-      false
-   end
- end
+   @ship == nil
+end 
 
  def place_ship(ship)
   @ship = ship
