@@ -55,7 +55,6 @@ class Board
   end
 
   def render(reveal = false)
-
     x_axis = @row.to_a.map {|num| num.to_s + " " }
     y_axis = @column.to_a.map {|letter| "\n#{letter}"}
     board = "\n #{(x_axis + y_axis).join}\n"
