@@ -1,198 +1,62 @@
-require './lib/ship'
 require './lib/cell'
-require 'pry'
-
 class Board
-  attr_reader :cells
+ attr_reader :cells
+ def initialize
+   @keys = []
+   @column = ("A".."D")
+   @row = (1..4)
+   @cells = {}
+ end
 
-  def initialize
-    @keys = [] #will you explain this to me?
-    @row = ("A".."D")
-    @column = (1..4)
-    @num = 0
-    @cells = {}
+ def create_board
+   @column.map {|letter|
+   @row.map {|number| @keys << (letter + number.to_s)
+   @keys.map {|key| @cells[key] = Cell.new(key)}}}
+ end
 
-  end
+ def valid_coordinate?(coordinate)
+  @keys.include?(coordinate)
+ end
 
-  def create_board #do we test for this in board test?
-    @row.map do |letter|
-    @column.map do |number|
-      @keys << (letter + number.to_s)
-    end
-    end
+ def valid_placement?(ship, placements)
+   letters = get_letters(placements)
+   numbers = get_numbers(placements)
+   return false if placements.count != ship.length
+   return false if placements.any? {|placement| !valid_coordinate?(placement)}
+   return false if placements.any? {|placement| !@cells[placement].empty?}
+   return true if letters.uniq.count == 1 && numbers_consecutive?(numbers)
+   return true if numbers.uniq.count == 1 && letters_consecutive?(letters)
+ end
 
-    @keys.each do |key|
-    @cells[key] = Cell.new(key.to_s) #this generates our coordinates
-    #assigns coordinate name to a key and a new instance of a cell to a value
-    end
+ def get_letters(placements) #passing thru an array
+   letters = placements.map { |placement| placement[0] } #getting our letter
+ end
 
-    @cells.keys #this returns all of our coordinates ya?
-  end
+ def get_numbers(placements) #passing thru an array
+   numbers = placements.map { |placement| placement[1] }#getting our number
+ end
 
-  def valid_coordinate?(placement)
-    @keys.include?(placement)
-  end
-########################################
-def valid_placement?(ship, placements)
+ def letters_consecutive?(letters) #(array of strings passed from line 60)
+   if (letters.count == 3) && (letters.last.ord - letters.first.ord == 2) then true
+   elsif (letters.count == 2) && (letters.last.ord - letters.first.ord == 1) then true
+   end
+ end
 
+ def numbers_consecutive?(numbers) #(array of strings passed from line 60)
+   if (numbers.count == 3) && (numbers.last.to_i - numbers.first.to_i == 2) then true
+   elsif (numbers.count == 2) && (numbers.last.to_i - numbers.first.to_i == 1) then  true
+   end
+ end
 
-  letters = get_letters(placements)
-  letters_consecutive?(letters)
+ def place(ship, placements)
+   if valid_placement?(ship, placements)
+      then placements.each {|placement| @cells[placement].place_ship(ship)}
+   end
+ end
 
-  numbers = get_numbers(placements)
-  numbers_consecutive?(numbers)
-
-  return false if placements.count != ship.length
-  return false if placements.any? do |placement|
-    !valid_coordinate?(placement)
-  end
-
-  if letters.uniq.count == 1 && numbers_consecutive?(numbers) == true
-    true
-  elsif numbers.uniq.count == 1 && letters_consecutive?(letters) == true
-      true
-  else
-    false
-  end
-
-end
-
-def get_letters(placements) #passing thru an array
-  letters = []
-  placements.each do |placement|
-    letters << placement[0] #getting our letter
-  end
-  letters
-end
-
-def get_numbers(placements) #passing thru an array
-  numbers = []
-  placements.each do |placement|
-    numbers << placement[1] #getting our number
-  endrequire './lib/ship'
-require './lib/cell'
-require 'pry'
-
-class Board
-  attr_reader :cells
-
-  def initialize
-    @keys = [] #will you explain this to me?
-    @row = ("A".."D")
-    @column = (1..4)
-    @num = 0
-    @cells = {}
-
-  end
-
-  def create_board #do we test for this in board test?
-    @row.map do |letter|
-    @column.map do |number|
-      @keys << (letter + number.to_s)
-    end
-    end
-
-    @keys.each do |key|
-    @cells[key] = Cell.new(key.to_s) #this generates our coordinates
-    #assigns coordinate name to a key and a new instance of a cell to a value
-    end
-
-    @cells.keys #this returns all of our coordinates ya?
-  end
-
-  def valid_coordinate?(placement)
-    @keys.include?(placement)
-  end
-########################################
-def valid_placement?(ship, placements)
-
-
-  letters = get_letters(placements)
-  letters_consecutive?(letters)
-
-  numbers = get_numbers(placements)
-  numbers_consecutive?(numbers)
-
-  return false if placements.count != ship.length
-  return false if placements.any? do |placement|
-    !valid_coordinate?(placement)
-  end
-
-  if letters.uniq.count == 1 && numbers_consecutive?(numbers) == true
-    true
-  elsif numbers.uniq.count == 1 && letters_consecutive?(letters) == true
-      true
-  else
-    false
-  end
-
-end
-
-def get_letters(placements) #passing thru an array
-  letters = []
-  placements.each do |placement|
-    letters << placement[0] #getting our letter
-  end
-  letters
-end
-
-def get_numbers(placements) #passing thru an array
-  numbers = []
-  placements.each do |placement|
-    numbers << placement[1] #getting our number
-  end
-  numbers
-end
-
-def letters_consecutive?(letters) #(array of strings passed from line 60)
-
-    case letters.count
-    when  3 && (letters.last.ord - letters.first.ord) == 2
-      true
-    when 2 && (letters.last.ord - letters.first.ord) == 1
-      true
-    else
-      false
-    end
-end
-
-
-def numbers_consecutive?(numbers) #(array of strings passed from line 60)
-    case numbers.count
-    when 3 && (numbers.last.to_i - numbers.first.to_i) == 2
-      true
-    when 2 && (numbers.last.to_i - numbers.first.to_i) == 1
-      true
-    else
-      false
-    end
-end
-end
-
-  numbers
-end
-
-def letters_consecutive?(letters) #(array of strings passed from line 60)
-
-    case letters.count
-    when  3 && (letters.last.ord - letters.first.ord) == 2
-      true
-    when 2 && (letters.last.ord - letters.first.ord) == 1
-      true
-    else
-      false
-    end
-end
-end
-
-def numbers_consecutive?(numbers) #(array of strings passed from line 60)
-    case numbers.count
-    when 3 && (numbers.last.to_i - numbers.first.to_i) == 2
-      true
-    when 2 && (numbers.last.to_i - numbers.first.to_i) == 1
-      true
-    else
-      false
-    end
-end
+ def render(reveal = false)
+   x_axis = @row.to_a.map {|num| num.to_s + " " }
+   y_axis = @column.to_a.map {|letter| "\n#{letter}"}
+   board = "\n #{(x_axis + y_axis).join}\n"
+ end
 end
