@@ -32,4 +32,8 @@ class PlayerTest < Minitest::Test
     skip
     assert_equal [cruiser, sub], player.create_board
   end
+
+  def test_place_ships #do we need this?
+
+  end
 end
