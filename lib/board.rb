@@ -115,7 +115,7 @@ class Board
       return false
     end
   end
-binding.pry
+#binding.pry
  # def same_letter?(ship, inputs)
  # letters = []
  # inputs.each do |input|
