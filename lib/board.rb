@@ -1,4 +1,7 @@
+require './lib/ship'
 require './lib/cell'
+require 'pry'
+
 class Board
  attr_reader :cells
  def initialize
@@ -9,10 +12,14 @@ class Board
  end
 
  def create_board
-   @column.map {|letter|
-   @row.map {|number| @keys << (letter + number.to_s)
-   @keys.map {|key| @cells[key] = Cell.new(key)}}}
+   @column.each {|letter|
+   @row.each {|number| @keys << (letter + number.to_s)
+   @keys.each {|key| @cells[key] = Cell.new(key).render}}}
+   @cells
  end
+
+
+
 
  def valid_coordinate?(coordinate)
   @keys.include?(coordinate)
@@ -57,6 +64,6 @@ class Board
  def render(reveal = false)
    x_axis = @row.to_a.map {|num| num.to_s + " " }
    y_axis = @column.to_a.map {|letter| "\n#{letter}"}
-   board = "\n #{(x_axis + y_axis).join}\n"
+   board = "\n #{(x_axis + @cells + y_axis).join}\n"
  end
 end
