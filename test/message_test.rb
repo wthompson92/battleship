@@ -15,17 +15,14 @@ def test_message_exists
 assert_instance_of Message, @message
 end
 
-def test_welcome_message
+def test_start_battleships
 
-  assert_equal "Welcome to BattleShip", @message.welcome
+  assert_equal "Welcome to BattleShip", @message.start_battleships
 end
 
-def test_user_input
+def test_computer_can_place_ships_validly_and_randomly
 
-  assert_equal "I have laid out my ships on the grid.\n You now need to lay out your two ships. \n The Cruiser is two units long and the Submarine is three units long.", @message.user_input("p")
-  assert_equal "Leaving BattleShip", @message.user_input("q")
-  assert_equal "Invalid input.", @message.user_input("r")
+  assert_equal , computer.place_ship(ship, [])
+  assert_equal true, computer.valid_placement?(#array of placements)
 end
-
-
 end
