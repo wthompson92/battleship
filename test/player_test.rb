@@ -9,24 +9,31 @@ require 'pry'
 
 class PlayerTest < Minitest::Test
 
-  # def setup
-  #   @player_1 = Player.new #i want to initialize each player with a board object
-  #   @player_2 = Player.new
-  # end
-
   def test_players_exist
-    player_1 = Player.new
-    player_2 = Player.new
+    human = Player.new("Nina", true)
+    computer = Player.new("Alyssa", false)
 
-    assert_instance_of Player, player_1
-    assert_instance_of Player, player_2
+    assert_instance_of Player, human
+    assert_instance_of Player, computer
   end
 
   def test_player_attributes
-    skip
-    assert_equal "#{name}", player.name
-    assert_equal @board, player.board
+    human = Player.new("Nina", true)
+    computer = Player.new("Alyssa", false)
+
+    assert_equal "Nina", human.name
+    assert_instance_of Board, human.board
+    assert human.human
+    refute computer.human
   end
+
+  def test_computer_fire_queue
+
+  end
+
+  #i think that we need a method in our board class that will
+  #allow us to pass thru the coordinates that we're placing our ships at.
+  #once we have that, we can
 
   def test_create_ships
     skip
@@ -34,6 +41,6 @@ class PlayerTest < Minitest::Test
   end
 
   def test_place_ships #do we need this?
-
+    skip
   end
 end
