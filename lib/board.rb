@@ -2,6 +2,7 @@ require './lib/cell'
 require './lib/ship'
 require 'pry'
 
+
 class Board
   attr_reader :cells
   def initialize
@@ -57,6 +58,8 @@ class Board
        then placements.map {|placement| @cells[placement].place_ship(ship)}
     end
   end
+
+  def render
 
   def render
     board = []
