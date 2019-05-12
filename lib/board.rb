@@ -1,4 +1,7 @@
 require './lib/cell'
+require './lib/ship'
+require 'pry'
+
 class Board
   attr_reader :cells
   def initialize
@@ -6,7 +9,6 @@ class Board
     @column = ("A".."D")
     @row = (1..4)
     @cells = {}
-    @ships = []
   end
 
   def create_board
@@ -53,33 +55,17 @@ class Board
   def place(ship, placements)
     if valid_placement?(ship, placements)
        then placements.map {|placement| @cells[placement].place_ship(ship)}
-    @ships << ship
     end
   end
 
-  def render(reveal = false)
+  def render
     board = []
     array_of_cells = []
-<<<<<<< HEAD
-<<<<<<< HEAD
-    @cells.map {|key, value| array_of_cells << (" " + value.render)}
-=======
     @cells.each {|key, value| array_of_cells << (" " + value.render)}
->>>>>>> 7e513691cddfa89973cf3c039c37a575c557b03f
-=======
-    @cells.each {|key, value| array_of_cells << (" " + value.render)}
->>>>>>> 7e513691cddfa89973cf3c039c37a575c557b03f
     x_axis = @row.to_a.map {|num| board << num.to_s + " " }
     board.push(" ")
     y_axis = @column.zip(array_of_cells.each_slice(4))
     y_axis.each{|letter| board <<  "\n" + letter.join}
-<<<<<<< HEAD
-<<<<<<< HEAD
-    board.push(" ")
-=======
->>>>>>> 7e513691cddfa89973cf3c039c37a575c557b03f
-=======
->>>>>>> 7e513691cddfa89973cf3c039c37a575c557b03f
     board.push("\n")
     board.unshift(" ")
     board.join
