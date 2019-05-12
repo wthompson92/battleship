@@ -56,7 +56,6 @@ class Board
   end
 
   def render(reveal = false)
-<<<<<<< HEAD
     board = []
     array_of_cells = []
     @cells.each {|key, value| array_of_cells << (" " + value.render)}
@@ -67,13 +66,5 @@ class Board
     board.push("\n")
     board.unshift(" ")
     board.join
-=======
-    array_of_cells = []
-    @cells.each {|key, value| array_of_cells << value}
-    rendered = array_of_cells.map {|cell| cell.render}
-    x_axis = @row.to_a.map {|num| num.to_s + " " }
-    y_axis = @column.to_a.map {|letter| "\n#{letter}"}
-    board = "\n #{(x_axis + y_axis).join}\n" + rendered.join
->>>>>>> b32049346706a886d46b04480e1d6afe71b19126
   end
 end
