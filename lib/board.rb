@@ -56,11 +56,15 @@ class Board
   end
 
   def render(reveal = false)
+    board = []
     array_of_cells = []
-    @cells.each {|key, value| array_of_cells << value}
-    rendered = array_of_cells.map {|cell| cell.render}
-    x_axis = @row.to_a.map {|num| num.to_s + " " }
-    y_axis = @column.to_a.map {|letter| "\n#{letter}"}
-    board = "\n #{(x_axis + y_axis).join}\n" + rendered.join
+    @cells.each {|key, value| array_of_cells << (" " + value.render)}
+    x_axis = @row.to_a.map {|num| board << num.to_s + " " }
+    board.push(" ")
+    y_axis = @column.zip(array_of_cells.each_slice(4))
+    y_axis.each{|letter| board <<  "\n" + letter.join}
+    board.push("\n")
+    board.unshift(" ")
+    board.join
   end
 end
