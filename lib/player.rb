@@ -14,17 +14,18 @@ class Player
     create_ships
   end
 
-  def create_ships #do you think that this would be better in the initialize method?
+  def create_ships
     @ships = {cruiser: Ship.new("Cruiser", 3),
        submarine: Ship.new("Submarine", 2)}
+
   end
 
   def place_ships #better name for this?
     ships.each do |ship|
       puts "Place #{ship.name}"
-      input = gets.chomp
+      input = gets.chomp #this should be an array
 
-      if @board.valid.placements?(ship, input) == true
+      if @board.valid_placements?(ship, input) == true
       end
     end
 

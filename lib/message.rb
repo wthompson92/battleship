@@ -1,5 +1,16 @@
+require './lib/ship'
+require './lib/cell'
+require './lib/board'
+require './lib/player'
+#require './lib/turn'
+
 class Message
-  #attr_reader
+  attr_reader :human, :computer 
+
+  def initialize(name)
+    @human = Player.new(name, true)
+    @computer = Player.new("Alyssa", false)
+  end
 
   def start_battleships
     puts "Welcome to BATTLESHIP"
@@ -15,8 +26,4 @@ class Message
       "Invalid response." #how can i prompt the user back to lines 4/5 of code.
     end
   end
-
-def initialize
-end
-
 end

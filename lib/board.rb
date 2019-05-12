@@ -20,8 +20,7 @@ class Board
   end
 
   def valid_coordinate?(coordinate)
-   @keys.include?(coordinate)
-  end
+   @keys.include?(coordinate)!!
 
   def valid_placement?(ship, placements)
     letters = get_letters(placements)
