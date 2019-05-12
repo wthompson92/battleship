@@ -1,4 +1,8 @@
 require './lib/cell'
+require './lib/ship'
+require 'pry'
+
+
 class Board
   attr_reader :cells
   def initialize
@@ -51,11 +55,13 @@ class Board
 
   def place(ship, placements)
     if valid_placement?(ship, placements)
-       then placements.each {|placement| @cells[placement].place_ship(ship)}
+       then placements.map {|placement| @cells[placement].place_ship(ship)}
     end
   end
 
-  def render(reveal = false)
+  def render
+
+  def render
     board = []
     array_of_cells = []
     @cells.each {|key, value| array_of_cells << (" " + value.render)}
