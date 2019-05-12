@@ -3,31 +3,28 @@ require 'minitest/pride'
 require './lib/cell'
 require './lib/board'
 require './lib/ship'
-require 'pry'
-class BoardTest < Minitest::Test
 
+class BoardTest < Minitest::Test
   def setup
     @board = Board.new
     @cruiser = Ship.new("Cruiser", 3)
     @submarine = Ship.new("Submarine", 2)
-
   end
 
-  def test_the_board_exists
+  def test_the_board_instance_exists
     expected = Board
     actual = @board
     assert_instance_of expected, actual
   end
 
   def test_the_board_has_cells
-#can you explain this one to me and do you think we should test that it has 16 elements?
-#should we also test that the values are objects? do we have to do that?
     expected = Hash
     actual = @board.cells.class
     assert_equal expected, actual
   end
 
   def test_for_valid_coordinates
+
     @board.create_board
 
     actual = @board.valid_coordinate?("A1")
@@ -47,21 +44,21 @@ class BoardTest < Minitest::Test
   end
 
   def test_num_of_coordinates_match_length
-    @board.create_board
-    @cruiser
-    @submarine
-
-    actual = @board.valid_placement?(@cruiser, ["A1", "A2"])
-    refute actual
-
-    actual = @board.valid_placement?(@submarine, ["A2", "A3", "A4"])
-    refute actual
+  @board.create_board
 
     actual = @board.valid_placement?(@submarine, ["A1", "A2"])
-    assert_equal true, actual
+    assert actual
+    actual = @board.valid_placement?(@cruiser, ["A1", "A2"])
+    refute actual
+    actual = @board.valid_placement?(@submarine, ["A2", "A3", "A4"])
+    refute actual
   end
+
   def test_coordinates_are_consecutive
-    skip
+    @board.create_board
+
+    actual = @board.valid_placement?(@cruiser, ["A1", "A2", "A3"])
+    assert actual
 
     actual = @board.valid_placement?(@cruiser, ["A1", "A2", "A4"])
     refute actual
@@ -75,16 +72,19 @@ class BoardTest < Minitest::Test
     actual = @board.valid_placement?(@submarine, ["C1", "B1"])
     refute actual
   end
- #binding.pry
+
   def test_placements_are_not_diagonal
+    @board.create_board
+
     actual = @board.valid_placement?(@cruiser, ["A1", "B2", "C3"])
     refute actual
 
     actual = @board.valid_placement?(@submarine, ["C2", "D3"])
-    refute actual
+     refute actual
   end
 
   def test_that_there_are_valid_coordinates
+    @board.create_board
 
     actual = @board.valid_placement?(@submarine, ["A1", "A2"])
     assert actual
@@ -94,32 +94,49 @@ class BoardTest < Minitest::Test
   end
 
   def test_ships_can_be_placed
-    skip
-    #place method will take 2 parameter, a ship and an array of coordinates
-    board.place(@cruiser, ["A1", "A2", "A3"])
+    @board.create_board
+    @board.place(@cruiser, ["A1", "A2", "A3"])
     cell_1 = @board.cells["A1"]
     cell_2 = @board.cells["A2"]
     cell_3 = @board.cells["A3"]
 
-    assert_equal @cruiser, cell_1.ship
-    assert_equal @cruiser, cell_2.ship
-    assert assert_equal @cruiser, cell_3.ship
-    assert_equal true, cell_3.ship == cell_2.ship #i'm not sure I understand this line and what we're asserting
-    end
+    expected = cell_1.ship
+    actual = @cruiser
+
+    assert_equal expected, actual
+
+    actual = @cruiser
+    expected = cell_2.ship
+
+    assert_equal expected, actual
+
+    actual = @cruiser
+    expected = cell_3.ship
+
+    assert assert_equal expected, actual
+
+    actual = true
+    expected = cell_3.ship == cell_2.ship
+    assert_equal expected, actual
+  end
 
   def test_overlapping_ships_are_not_allowed
-    skip
-
-    @board.place(cruiser, ["A1", "A2", "A3"])
-    assert_equal false, @board.valid_placement?(submarine, ["A1", "B1"])
+    @board.create_board
+    @board.place(@cruiser, ["A1", "A2", "A3"])
+    actual = @board.valid_placement?(@submarine, ["A1", "B1"])
+    refute actual
   end
 
   def test_the_board_can_render
-    skip
-    @board.place(cruiser, ["A1", "A2", "A3"])
-    assert_equal "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n", @board.render
+  @board.create_board
+    # expected = " 1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n"
+    # actual = @board.render
+    # assert_equal expected, actual
 
-      expected = "  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n" #I'm not sure what we're testing here.
-      actual = board.render(true)
+    @board.place(@cruiser, ["A1", "A2", "A3"])
+    expected = " 1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n"
+    actual = @board.render
+
+    assert_equal expected, actual
   end
-end
+  end

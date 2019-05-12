@@ -1,11 +1,10 @@
 class Cell
-attr_reader :coordinate, :ship #okay can you explain to me again why we only need these attributes in our attr_reader as opposed to all of them?
+attr_reader :coordinate, :ship
 
 
 def initialize(coordinate)
   @coordinate = coordinate
   @fired_upon = false
-  #@ship = [] why won't this line of code work when paired with line 31?
   @ship = nil
 end
 

@@ -1,5 +1,8 @@
 require 'pry'
+require './lib/ship'
+require './lib/cell'
 require './lib/board'
+
 class Player
   attr_reader :name, :board, :human, :ships
 
@@ -17,8 +20,13 @@ class Player
   end
 
   def place_ships #better name for this?
-    @ships.each do |name, ship|
-      
+    ships.each do |ship|
+      puts "Place #{ship.name}"
+      input = gets.chomp
+
+      if @board.valid.placements?(ship, input) == true
+      end
+    end
 
   end
 

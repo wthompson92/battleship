@@ -1,129 +1,74 @@
-require './lib/ship'
 require './lib/cell'
+require './lib/ship'
 require 'pry'
+
 
 class Board
   attr_reader :cells
-
   def initialize
-    @keys = [] #will you explain this to me?
-    @row = ("A".."D")
-    @column = (1..4)
-    @num = 0
+    @keys = []
+    @column = ("A".."D")
+    @row = (1..4)
     @cells = {}
-    @ship = nil
   end
 
-  def create_board #do we test for this in board test?
-    @row.map do |letter|
-    @column.map do |number|
-      @keys << (letter + number.to_s)
-    end
-    end
-
-    @keys.each do |key|
-    @cells[key] = Cell.new(key.to_s) #this generates our coordinates
-    #assigns coordinate name to a key and a new instance of a cell to a value
-    end
-
-    @cells.keys #this returns all of our coordinates ya?
+  def create_board
+    @column.each {|letter|
+    @row.each {|number| @keys << (letter + number.to_s)
+    @keys.each {|key| @cells[key] = Cell.new(key)}}}
+    @cells
   end
 
-  def valid_coordinate?(placement)
-    @keys.include?(placement)
+  def valid_coordinate?(coordinate)
+   @keys.include?(coordinate)
   end
-########################################
+
   def valid_placement?(ship, placements)
-    letters = get_letters(placements) #made get_letters below this method.
-    letters_consecutive?(letters) #also made below
-
-    numbers = get_numbers(placements) #same thing as methods above, just tailored to numbers
-    numbers_consecutive?(numbers)
-
-    return false if placements.count != ship.length #remember that placements is an array that is user generated that we pass thru
-
-    return false if placements.any? do |placement| #returning false if player trues to place coords in invalid cells
-      !valid_coordinate?(placement)
-    end
-
-    if letters.uniq.count == 1 && numbers_consecutive?(numbers) == true
-      true
-    elsif numbers.uniq.count == 1 && letters_consecutive?(letters) == true
-        true
-    else
-      false
-      puts "Those are invalid coordinates. Please try again:"
-    end
-#   def valid_placement?(ship, placements)
-#  letters = get_letters(placements)
-#  letters_consecutive?(letters)
-#
-#  numbers = get_numbers(placements)
-#  numbers_consecutive?(numbers)
-#  @ship = ship
-#
-#
-#  if @ship.health == placements.length
-#    if placements.all? {|placement|}
-#      valid_coordinate?(placement)
-#      if (letters.uniq.count == 1 && numbers_consecutive?(numbers) == true) || (numbers.uniq.count == 1 && letters_consecutive?(letters) == true)
-#        return true
-#      end
-#    end
-#  else
-#    false
-#  end
-# end
-
-  # if false # we just added this after we got everything working
-  #   puts "Those are invalid coordinates. Please try again:"
-  # end
+    letters = get_letters(placements)
+    numbers = get_numbers(placements)
+    return false if placements.count != ship.length
+    return false if placements.any? {|placement| !valid_coordinate?(placement)}
+    return false if placements.any? {|placement| !@cells[placement].empty?}
+    return true if letters.uniq.count == 1 && numbers_consecutive?(numbers)
+    return true if numbers.uniq.count == 1 && letters_consecutive?(letters)
   end
 
   def get_letters(placements) #passing thru an array
-    letters = []
-    placements.each do |placement|
-      letters << placement[0] #getting our letter
-    end
-    letters
+    letters = placements.map { |placement| placement[0] } #getting our letter
   end
 
   def get_numbers(placements) #passing thru an array
-    numbers = []
-    placements.each do |placement|
-      numbers << placement[1] #getting our number
-    end
-    numbers
+    numbers = placements.map { |placement| placement[1] }#getting our number
   end
 
-  def letters_consecutive?(letters) #(array of strings)
-    if letters.count == 3 && (letters.last.ord - letters.first.ord) == 2 && letters[1].ord < letters.last.ord
-      true
-    elsif letters.count == 2 && (letters.last.ord - letters.first.ord) == 1
-      true
-    else
-      false
+  def letters_consecutive?(letters) #(array of strings passed from line 60)
+    if (letters.count == 3) && (letters.last.ord - letters.first.ord == 2) then true
+    elsif (letters.count == 2) && (letters.last.ord - letters.first.ord == 1) then true
     end
   end
 
   def numbers_consecutive?(numbers) #(array of strings passed from line 60)
-    if numbers.count == 3 && (numbers.last.to_i - numbers.first.to_i) == 2 && numbers[1].to_i < numbers.last.to_i
-      true
-    elsif numbers.count == 2 && (numbers.last.to_i - numbers.first.to_i) == 1
-      return true
-    else
-      return false
+    if (numbers.count == 3) && (numbers.last.to_i - numbers.first.to_i == 2) then true
+    elsif (numbers.count == 2) && (numbers.last.to_i - numbers.first.to_i == 1) then  true
     end
   end
-#binding.pry
- # def same_letter?(ship, inputs)
- # letters = []
- # inputs.each do |input|
- #   letters << input[0]
- #   end
- #   if letters.uniq.count == 1
- #     return true
- #   else
- #     return false
- #   end
+
+  def place(ship, placements)
+    if valid_placement?(ship, placements)
+       then placements.map {|placement| @cells[placement].place_ship(ship)}
+    end
+  end
+
+  def render
+    board = []
+    array_of_cells = []
+    @cells.each {|key, value| array_of_cells << (" " + value.render)}
+    x_axis = @row.to_a.map {|num| board << num.to_s + " " }
+    board.push(" ")
+    y_axis = @column.zip(array_of_cells.each_slice(4))
+    y_axis.each{|letter| board <<  "\n" + letter.join}
+    board.push("\n")
+    board.unshift(" ")
+    board.join
+  end
 end
