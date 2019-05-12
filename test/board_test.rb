@@ -128,6 +128,10 @@ class BoardTest < Minitest::Test
   end
 
   def test_the_board_can_render
+<<<<<<< HEAD
+=======
+
+>>>>>>> b32049346706a886d46b04480e1d6afe71b19126
     @board.create_board
     expected = " 1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n"
     actual = @board.render
