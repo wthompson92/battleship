@@ -25,22 +25,10 @@ class PlayerTest < Minitest::Test
     assert_instance_of Board, human.board
     assert human.human
     refute computer.human
+    assert_instance_of Hash, human.ships
   end
 
-  def test_computer_fire_queue
-
-  end
-
-  #i think that we need a method in our board class that will
-  #allow us to pass thru the coordinates that we're placing our ships at.
-  #once we have that, we can
-
-  def test_create_ships
-    skip
-    assert_equal [cruiser, sub], player.create_board
-  end
-
-  def test_place_ships #do we need this?
+  def test_place_ships #how do we test this?
     skip
   end
 end
