@@ -1,3 +1,4 @@
+
 class Turn 
   attr_reader
 
@@ -22,4 +23,4 @@ class Turn
           firing_queue.shuffle!
       end
   end
-end
+
