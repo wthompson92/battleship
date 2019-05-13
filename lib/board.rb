@@ -67,8 +67,9 @@ class Board
     y_axis = @column.zip(array_of_cells.each_slice(4))
     y_axis.each{|letter| board <<  "\n" + letter.join}
     board.push("\n")
+    board.unshift("  ")
     board.unshift("\n")
-    board.unshift(" ")
+
     board.join
   end
 end
