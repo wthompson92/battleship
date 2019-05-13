@@ -30,7 +30,6 @@ class Cell
      @coordinate = "."
    elsif @fired_upon == false  && empty? == false
     @coordinate = "S"
-
    elsif @fired_upon == true && empty? == true
      @coordinate = "M"
    elsif @fired_upon == true && empty? == false && @ship.sunk? == false
@@ -39,5 +38,4 @@ class Cell
      @coordinate = "X"
    end
  end
-end
 end

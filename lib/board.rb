@@ -2,7 +2,6 @@ require './lib/cell'
 require './lib/ship'
 require 'pry'
 
-
 class Board
   attr_reader :cells
   def initialize
@@ -10,6 +9,7 @@ class Board
     @column = ("A".."D")
     @row = (1..4)
     @cells = {}
+    @ships = []
   end
 
   def create_board
@@ -56,21 +56,25 @@ class Board
   def place(ship, placements)
     if valid_placement?(ship, placements)
        then placements.map {|placement| @cells[placement].place_ship(ship)}
+       @ships << ship
     end
   end
 
   def render
-
-  def render
     board = []
     array_of_cells = []
-    @cells.each {|key, value| array_of_cells << (" " + value.render)}
+    @cells.map {|key, value| array_of_cells << (" " + value.render)}
     x_axis = @row.to_a.map {|num| board << num.to_s + " " }
     board.push(" ")
     y_axis = @column.zip(array_of_cells.each_slice(4))
     y_axis.each{|letter| board <<  "\n" + letter.join}
     board.push("\n")
-    board.unshift(" ")
+    board.unshift("  ")
+    board.unshift("\n")
     board.join
   end
+
+  def all_sunk?
+    @ships.all? {|ship| ship.sunk?}
+  end 
 end
