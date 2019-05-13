@@ -61,7 +61,7 @@ class Board
   def render
     board = []
     array_of_cells = []
-    @cells.each {|key, value| array_of_cells << (" " + value.render)}
+    @cells.map {|key, value| array_of_cells << (" " + value.render)}
     x_axis = @row.to_a.map {|num| board << num.to_s + " " }
     board.push(" ")
     y_axis = @column.zip(array_of_cells.each_slice(4))
