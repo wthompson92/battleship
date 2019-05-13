@@ -20,7 +20,7 @@ board.place(cruiser, placements)
 print board.render
 board.place(submarine, placements_2)
 print board.render
- # message.take_shot_method
+# message.take_shot_method
  board.cells["A1"].fire_upon
  print board.render
  board.cells["A2"].fire_upon
@@ -28,5 +28,4 @@ print board.render
  board.cells["A3"].fire_upon
  print board.render
  board.cells["D4"].fire_upon
-
-print board.render
+ print board.render

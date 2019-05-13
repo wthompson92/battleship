@@ -9,6 +9,7 @@ class Board
     @column = ("A".."D")
     @row = (1..4)
     @cells = {}
+    @ships = []
   end
 
   def create_board
@@ -55,6 +56,7 @@ class Board
   def place(ship, placements)
     if valid_placement?(ship, placements)
        then placements.map {|placement| @cells[placement].place_ship(ship)}
+       @ships << ship
     end
   end
 
@@ -69,7 +71,10 @@ class Board
     board.push("\n")
     board.unshift("  ")
     board.unshift("\n")
-
     board.join
   end
+
+  def all_sunk?
+    @ships.all? {|ship| ship.sunk?}
+  end 
 end
