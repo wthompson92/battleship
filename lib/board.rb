@@ -76,5 +76,6 @@ class Board
 
   def all_sunk?
     @ships.all? {|ship| ship.sunk?}
-  end 
+
+end
 end
