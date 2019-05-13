@@ -5,6 +5,7 @@ require 'pry'
 
 class Board
   attr_reader :cells
+
   def initialize
     @keys = []
     @column = ("A".."D")
@@ -20,7 +21,8 @@ class Board
   end
 
   def valid_coordinate?(coordinate)
-   @keys.include?(coordinate)!!
+   @keys.include?(coordinate)
+ end #we need an end
 
   def valid_placement?(ship, placements)
     letters = get_letters(placements)
