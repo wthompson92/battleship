@@ -154,12 +154,11 @@ class Board
     end
   end
 
-  def render
+  def render(reveal = false )
     board = []
     array_of_cells = []
+    @cells.map {|key, value| array_of_cells << (" " + value.render(true))}
 
-    @cells.each {|key, value| array_of_cells << (" " + value.render)}
-    
     x_axis = @row.to_a.map {|num| board << num.to_s + " " }
     board.push(" ")
     y_axis = @column.zip(array_of_cells.each_slice(4))
@@ -176,8 +175,13 @@ class Board
   end
 
   def all_sunk?
+<<<<<<< HEAD
     @ships.all? {|ship| ship.sunk?}
   end 
 
 >>>>>>> f2326ceda36ec5a8b1d9c8cbef6149345c130b85
+=======
+   @ships.all? {|ship| ship.sunk?}
+  end
+>>>>>>> 02bec89e15d0f65db34443bb79383941ea662c18
 end
