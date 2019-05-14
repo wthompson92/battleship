@@ -14,16 +14,19 @@ placements = ["A1", "A2", "A3"]
 placements_2 = ["C1", "D1"]
 turn = Turn.new(player_board, computer_board, message)
 message.main_menu
-input = "p"
+input = gets.chomp
 message.play_or_leave(input)
 player_board.create_board
 computer_board.create_board
+turn.place_comp_ships(cruiser)
+turn.place_comp_ships(submarine)
 message.prompt_placement_cruiser(placements)
 turn.setup(cruiser, placements)
 message.prompt_placement_sub(placements_2)
 turn.setup(submarine, placements_2)
 turn.fire
-message.end_game_message_player_win
+turn.end_game
+message.main_menu
 
 
 

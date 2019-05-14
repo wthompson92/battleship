@@ -1,4 +1,8 @@
 
+require './lib/board'
+require 'pry'
+
+
 class Turn
   def initialize(player_board, computer_board, message)
     @player_board = player_board
@@ -6,34 +10,56 @@ class Turn
     @message = message
   end
 
+  def num_generator
+    rand(0..1)
+  end
+
+  def get_computer_placement_coords
+    sample = @computer_board.cells.keys.shuffle.pop
+    x = sample.chars[num_generator]
+    first_cood = @computer_board.cells.keys.select do |cell|
+    cell.include?(x)
+    end
+  end
+
+  def place_comp_ships(ship)
+    number = ship.length
+    trial = []
+    until @computer_board.valid_placement?(ship, trial) do
+      trial = get_computer_placement_coords.take(number)
+    end
+      @computer_board.place(ship, trial)
+    end
   def setup(ship, placements)
     until @player_board.valid_placement?(ship, placements) == true do
       @message.invalid_placements_messasge
     end
       @player_board.place(ship, placements)
-      puts "\n#{"=" * 3}COMPUTER BOARD#{"=" * 3}\n #{@computer_board.render}"
-      print "\n#{"=" * 3}PLAYER BOARD#{"=" * 3}\n #{@player_board.render}"
+      puts "#{@message.computer_board + @computer_board.render}"
+      puts "#{@message.player_board + @player_board.render(true)}"
   end
+
 
   def fire
-    #change to or when computer places ships
+    keys = @player_board.cells.keys.shuffle!
     until @player_board.all_sunk? == true && @computer_board.all_sunk? == true do
-      puts @message.take_shot_method
+      @message.take_shot_method
       coordinate = gets.chomp.to_s.upcase
-      if @computer_board.valid_coordinate?(coordinate) == false
-        puts "\n#{@message.invalid_shot_message}\n"
+      if !@computer_board.valid_coordinate?(coordinate) then @message.invalid_shot_message
       else
         @computer_board.cells[coordinate].fire_upon
-        puts "\n#{"=" * 3}COMPUTER BOARD#{"=" * 3}\n #{@computer_board.render}"
-        puts "\n#{"=" * 3}PLAYER BOARD#{"=" * 3}\n #{@player_board.render(true)}"
-      end
+        puts "#{@message.computer_board + @computer_board.render}"
+        @player_board.cells[keys.pop].fire_upon
+        puts "#{@message.computer_board + @computer_board.render}"
+        puts "#{@message.player_board + @player_board.render(true)}"
     end
   end
+end
 
   def end_game
-    if @player_board.all_sunk? == true
+    if @player_board.all_sunk? && !@computer_board.all_sunk?
       puts @message.end_game_message_computer_win
-    elsif @computer_board.all_sunk? == true
+    elsif @computer_board.all_sunk? && @computer_board.all_sunk?
       puts @message.end_game_message_player_win
     else
       puts "Error!"
