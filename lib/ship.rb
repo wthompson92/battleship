@@ -10,15 +10,15 @@ class Ship
   end
 
   def sunk?
-    if @hit_counter >= @health
+    if @hit_counter <= @health
+      @sunk = false
+    else
       @sunk = true
-    else @sunk = false 
     end
     @sunk
   end
 
   def hit
     @hit_counter += 1
-    @health -= 1
   end
 end
