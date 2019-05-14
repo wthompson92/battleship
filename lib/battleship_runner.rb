@@ -18,13 +18,15 @@ input = gets.chomp
 message.play_or_leave(input)
 player_board.create_board
 computer_board.create_board
+turn.place_comp_ships(cruiser)
+turn.place_comp_ships(submarine)
 message.prompt_placement_cruiser(placements)
 turn.setup(cruiser, placements)
 message.prompt_placement_sub(placements_2)
 turn.setup(submarine, placements_2)
 turn.fire
 turn.end_game
-turn.main_menu
+message.main_menu
 
 
 

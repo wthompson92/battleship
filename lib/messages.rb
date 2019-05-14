@@ -1,7 +1,7 @@
 class Messages
 
 def main_menu
-  print "\n\t\t\t\t***Welcome to Battleship!***\n\n\t\tEnter [p] to play: \t\t\tEnter [q] to quit:
+  print "\n\t\t\t***Welcome to Battleship!***\n\n\tEnter [p] to play: \t\t\tEnter [q] to quit:
   >"
 end
 

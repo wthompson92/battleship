@@ -1,4 +1,5 @@
 require './lib/board'
+require 'pry'
 
 class Turn
   def initialize(player_board, computer_board, message)
@@ -7,6 +8,26 @@ class Turn
     @message = message
   end
 
+  def num_generator
+    rand(0..1)
+  end
+
+  def get_computer_placement_coords
+    sample = @computer_board.cells.keys.shuffle.pop
+    x = sample.chars[num_generator]
+    first_cood = @computer_board.cells.keys.select do |cell|
+    cell.include?(x)
+    end
+  end
+
+  def place_comp_ships(ship)
+    number = ship.length
+    trial = []
+    until @computer_board.valid_placement?(ship, trial) do
+      trial = get_computer_placement_coords.take(number)
+    end
+      @computer_board.place(ship, trial)
+    end
   def setup(ship, placements)
     until @player_board.valid_placement?(ship, placements) == true do
       @message.invalid_placements_messasge
@@ -16,7 +37,9 @@ class Turn
       puts "#{@message.player_board + @player_board.render(true)}"
   end
 
+
   def fire
+    keys = @player_board.cells.keys.shuffle!
     until @player_board.all_sunk? == true && @computer_board.all_sunk? == true do
       @message.take_shot_method
       coordinate = gets.chomp.to_s.upcase
@@ -24,7 +47,6 @@ class Turn
       else
         @computer_board.cells[coordinate].fire_upon
         puts "#{@message.computer_board + @computer_board.render}"
-        keys = @player_board.cells.keys.shuffle!
         @player_board.cells[keys.pop].fire_upon
         puts "#{@message.computer_board + @computer_board.render}"
         puts "#{@message.player_board + @player_board.render(true)}"
@@ -33,9 +55,9 @@ class Turn
 end
 
   def end_game
-    if @player_board.all_sunk? == true
+    if @player_board.all_sunk? && !@computer_board.all_sunk?
       puts @message.end_game_message_computer_win
-    elsif @computer_board.all_sunk? == true
+    elsif @computer_board.all_sunk? && @computer_board.all_sunk?
       puts @message.end_game_message_player_win
     else
       puts "Error!"
