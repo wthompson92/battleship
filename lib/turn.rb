@@ -1,4 +1,3 @@
-require './lib/board'
 
 class Turn
   def initialize(player_board, computer_board, message)

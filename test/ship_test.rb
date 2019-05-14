@@ -4,9 +4,11 @@ require './lib/ship'
 
 class ShipTest < Minitest::Test
 
- def setup
-   @cruiser = Ship.new("Cruiser", 3)
- end
+
+  def setup
+    @cruiser = Ship.new("Cruiser", 3)
+    @submarine = Ship.new("Submarine", 2)
+  end
 
  def test_it_exists
    expected = Ship
@@ -50,10 +52,16 @@ class ShipTest < Minitest::Test
 
    assert_equal expected, actual
 
+
+  def test_ship_can_be_sunk
+    @cruiser.hit
+    @cruiser.hit
+    @cruiser.hit #won't work when i do @cruiser.hit * 3
+    actual = @cruiser.sunk?
+
    @cruiser.hit
    expected = 1
    actual = @cruiser.health
-
    assert_equal expected,actual
  end
 
