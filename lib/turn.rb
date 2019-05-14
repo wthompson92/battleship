@@ -1,5 +1,7 @@
+
 require './lib/board'
 require 'pry'
+
 
 class Turn
   def initialize(player_board, computer_board, message)
