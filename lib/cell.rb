@@ -25,16 +25,16 @@ class Cell
    end
  end
 
- def render
+ def render(reveal)
    if @fired_upon == false && empty? == true
      @coordinate = "."
-   elsif @fired_upon == false  && empty? == false
+   elsif @fired_upon == false  && empty? == false && reveal == true
     @coordinate = "S"
    elsif @fired_upon == true && empty? == true
      @coordinate = "M"
-   elsif @fired_upon == true && empty? == false && @ship.sunk? == false
+   elsif @fired_upon == true && !empty? && !@ship.sunk?
      @coordinate = "H"
-   elsif @fired_upon == true && empty? == false && @ship.sunk? == true
+   elsif @fired_upon == true && !empty? && @ship.sunk?
      @coordinate = "X"
    end
  end
