@@ -12,87 +12,51 @@ class CellTest < Minitest::Test
  end
 
  def test_cell_exists
-    expected = Cell
-    actual = @cell
-
-    assert_instance_of expected, actual
+    assert_instance_of Cell, @cell
  end
 
  def test_cell_has_attributes
-    expected = "B4"
-    actual = @cell.coordinate
-
-    assert_equal expected, actual
+    assert_equal "B4", @cell.coordinate
  end
 
  def test_cell_is_empty?
-    actual = @cell.ship
-    assert_nil actual
-
-    actual = @cell.empty?
-    assert actual
+    assert_nil @cell.ship
+    assert @cell.empty?
  end
 
- def test_it_can_place_ship
+ def test_cell_can_place_ship
     @cell.place_ship(@cruiser)
-    expected = @cruiser
-    actual = @cell.ship
-
-    assert_equal expected, actual
-
-    actual = @cell.empty?
-    refute actual
+    assert_equal @cruiser, @cell.ship
+    refute @cell.empty?
  end
 
- def test_it_can_be_fired_upon
-    expected = false
-    actual = @cell.fired_upon?
-
-    assert_equal expected, actual
+ def test_cell_can_be_fired_upon
+    assert_equal false, @cell.fired_upon?
 
     @cell.place_ship(@cruiser)
     @cell.fire_upon
-    expected = 2
-    actual = @cell.fire_upon
 
-    assert_equal expected, actual
-
-    actual = @cell.fired_upon?
-    assert actual
+    assert_equal 2, @cell.fire_upon
+    assert @cell.fired_upon?
  end
 
- def test_it_can_render
-   expected = "."
-   actual = @cell.render
-
-   assert_equal expected, actual
+ def test_cell_can_render
+   assert_equal ".", @cell.render
 
    @cell.fire_upon
-   expected = "M"
-   actual  = @cell.render
-
-   assert_equal expected, actual
+   assert_equal "M", @cell.render
 
    @cell_2.place_ship(@cruiser)
-   expected = "."
-   actual = @cell_2.render
-
-   assert_equal expected, actual
+   assert_equal ".", @cell_2.render
 
   @cell_2.place_ship(@cruiser)
   @cell_2.fire_upon
-  expected = "H"
-  actual = @cell_2.render
-
-  assert_equal expected, actual
+  assert_equal "H", @cell_2.render
 
   @cell_2.place_ship(@cruiser)
   @cell_2.fire_upon
   @cruiser.hit
   @cruiser.hit
-  expected = "X"
-  actual  = @cell_2.render
-
- assert_equal expected, actual
+ assert_equal "X", @cell_2.render
  end
 end
