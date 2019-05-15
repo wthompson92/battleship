@@ -4,7 +4,6 @@ require './lib/ship'
 
 class ShipTest < Minitest::Test
 
-
   def setup
     @cruiser = Ship.new("Cruiser", 3)
     @submarine = Ship.new("Submarine", 2)
@@ -20,28 +19,24 @@ class ShipTest < Minitest::Test
  def test_it_has_a_name
    expected = "Cruiser"
    actual = @cruiser.name
-
    assert_equal expected, actual
  end
 
  def test_it_has_a_length
    expected = 3
    actual = @cruiser.length
-
    assert_equal expected, actual
  end
 
  def test_it_has_health
    expected = 3
    actual = @cruiser.health
-
    assert_equal expected, actual
  end
 
  def test_if_it_sunk
    expected = false
    actual = @cruiser.sunk?
-
    assert_equal expected, actual
  end
 
@@ -49,9 +44,7 @@ class ShipTest < Minitest::Test
    @cruiser.hit
    expected = 2
    actual = @cruiser.health
-
    assert_equal expected, actual
-
 
   def test_ship_can_be_sunk
     @cruiser.hit
