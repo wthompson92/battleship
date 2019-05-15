@@ -19,6 +19,7 @@ class Board
   end
 
   def valid_coordinate?(coordinate)
+
     @keys.include?(coordinate) && @cells[coordinate].fired_upon? == false
   end
 
@@ -41,7 +42,8 @@ return true if numbers.uniq.count == 1 && letters_consecutive?(letters)
   end
 
   def letters_consecutive?(letters) #(array of strings passed from line 60)
-    if (letters.count == 3) && (letters.last.ord - letters.first.ord == 2) then true
+    if ((letters.count == 3) && (letters.last.ord - letters.first.ord == 2))
+      return  true
     elsif (letters.count == 2) && (letters.last.ord - letters.first.ord == 1) then true
     end
   end
@@ -55,7 +57,6 @@ return true if numbers.uniq.count == 1 && letters_consecutive?(letters)
   def place(ship, placements)
     if valid_placement?(ship, placements)
       then placements.map {|placement| @cells[placement].place_ship(ship)}
-
       @ships << ship
     end
   end
