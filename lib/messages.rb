@@ -33,28 +33,28 @@ def invalid_placements_messasge
     print "That is an invalid coordinate to fire on. Please try again.\n"
 end
 
-  def player_shot_miss
+  def player_shot_miss(coordinate)
     print "Your shot on #{coordinate} was a miss."
   end
 
-  def computer_shot_miss
+  def computer_shot_miss(coordinate)
     print "My shot on #{coordinate} was a miss."
   end
 
-  def player_shot_hit
-      print "Your shot on #{coordinate} was a hit on #{ship}."
+  def player_shot_hit(coordinate)
+      print "Your shot on #{coordinate} was a hit on #{coordinate.ship}."
   end
 
   def computer_shot_hit
-    print "My shot on #{coordinate} was a hit on #{ship}."
+    print "My shot on #{coordinate} was a hit on #{coordinate.ship}."
   end
 
-  def player_shot_sunk_shit
-    print "Your shot on #{coordinate} was a hit and has sunk the #{ship}."
+  def player_shot_sunk_shit(coordinate)
+    print "Your shot on #{coordinate} was a hit and has sunk the #{coordinate.ship}."
   end
 
-  def computer_shot_sunk
-    print "My shot on #{coordinate} was a hit and has sunk #{ship}."
+  def computer_shot_sunk(coordinate)
+    print "My shot on #{coordinate} was a hit and has sunk #{ship.ship}."
   end
 
   def end_game_message_player_win

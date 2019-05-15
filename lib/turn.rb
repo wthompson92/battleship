@@ -1,7 +1,5 @@
-
 require './lib/board'
 require 'pry'
-
 
 class Turn
   def initialize(player_board, computer_board, message)
@@ -42,29 +40,28 @@ class Turn
       puts "#{@message.player_board + @player_board.render(true)}"
   end
 
+
   def fire
     keys = @player_board.cells.keys.shuffle!
-    while @player_board.all_sunk? == false && @computer_board.all_sunk? == false do
+    until @player_board.all_sunk? == true || @computer_board.all_sunk? == true do
       @message.take_shot_method
       coordinate = gets.chomp.to_s.upcase
       if !@computer_board.valid_coordinate?(coordinate) then @message.invalid_shot_message
       else
         @computer_board.cells[coordinate].fire_upon
-        print "#{@message.computer_board + @computer_board.render(false)}"
+        puts "#{@message.computer_board + @computer_board.render}"
         @player_board.cells[keys.pop].fire_upon
-        puts "#{@message.computer_board + @computer_board.render(false)}"
+        puts "#{@message.computer_board + @computer_board.render}"
         puts "#{@message.player_board + @player_board.render(true)}"
       end
     end
   end
 
   def end_game
-    if @player_board.all_sunk? == true
-      print @message.end_game_message_computer_win
-    elsif  @computer_board.all_sunk? == true
-      print @message.end_game_message_player_win
-    else
-      print "Draw!"
+    if @player_board.all_sunk? && !@computer_board.all_sunk?
+      puts @message.end_game_message_computer_win
+    else @computer_board.all_sunk? && !@player_board.all_sunk?
+      puts @message.end_game_message_player_win
     end
   end
 end
