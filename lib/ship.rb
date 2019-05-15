@@ -1,21 +1,16 @@
 class Ship
-  attr_reader :name, :health, :length #three attributes that we wanna know about and view
+  attr_reader :name, :health #three attributes that we wanna know about and view
 
-  def initialize(name, length)
+  def initialize(name, health)
       @name = name
-      @health = length
-      @length = length
+      @health = health
       @sunk = false
       @hit_counter = 0 #I really like this idea and don't think that I would have that of this
   end
 
   def sunk?
-    if @hit_counter < @health
-      @sunk = false
-    elsif @hit_counter >= @health
+    if @hit_counter >= @health
       @sunk = true
-    else
-    print  "Error"
     end
     @sunk
   end

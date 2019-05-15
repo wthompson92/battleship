@@ -44,13 +44,13 @@ class Board
   end
 
   def valid_coordinate?(coordinate)
-   @keys.include?(coordinate)
+   @keys.include?(coordinate) && @cells[coordinate].fired_upon? == false 
   end
 
   def valid_placement?(ship, placements)
     letters = get_letters(placements)
     numbers = get_numbers(placements)
-    return false if placements.count != ship.length
+    return false if placements.count != ship.health
     return false if placements.any? {|placement| !valid_coordinate?(placement)}
     return false if placements.any? {|placement| !@cells[placement].empty?}
     return true if letters.uniq.count == 1 && numbers_consecutive?(numbers)
