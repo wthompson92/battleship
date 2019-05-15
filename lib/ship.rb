@@ -1,9 +1,10 @@
 class Ship
-  attr_reader :name, :health #three attributes that we wanna know about and view
+  attr_reader :name, :health, :length, :hit_counter #three attributes that we wanna know about and view
 
   def initialize(name, health)
       @name = name
       @health = health
+      @length = health
       @sunk = false
       @hit_counter = 0 #I really like this idea and don't think that I would have that of this
   end
