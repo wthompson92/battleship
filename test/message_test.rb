@@ -15,11 +15,6 @@ def test_message_exists
 assert_instance_of Message, @message
 end
 
-<<<<<<< HEAD
-def test_welcome_message
-
-  assert_equal "Welcome to BattleShip", @message.welcome
-=======
 def test_start_battleships
 
   assert_equal "Welcome to BattleShip", @message.start_battleships
