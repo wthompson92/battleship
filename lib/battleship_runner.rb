@@ -15,6 +15,7 @@ placements_2 = ["C1", "D1"]
 turn = Turn.new(player_board, computer_board, message)
 message.main_menu
 input = gets.chomp
+if input == "p"
 message.play_or_leave(input)
 player_board.create_board
 computer_board.create_board
@@ -26,7 +27,9 @@ message.prompt_placement_sub(placements_2)
 turn.setup(submarine, placements_2)
 turn.fire
 turn.end_game
+end
 message.main_menu
+input = gets.chomp
 
 
 

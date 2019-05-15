@@ -13,15 +13,15 @@ class Turn
   end
 
   def get_computer_placement_coords
-    sample = @computer_board.cells.keys.shuffle.pop
-    x = sample.chars[num_generator]
-    first_cood = @computer_board.cells.keys.select do |cell|
-    cell.include?(x)
+    random_coordinate = @computer_board.cells.keys.shuffle.pop
+    letter_or_num = random_coordinate.chars[num_generator]
+    possible_placements = @computer_board.cells.keys.select do |cell|
+    cell.include?(letter_or_num)
     end
   end
 
   def place_comp_ships(ship)
-    number = ship.length
+    number = ship.health
     trial = []
     until @computer_board.valid_placement?(ship, trial) do
       trial = get_computer_placement_coords.take(number)
