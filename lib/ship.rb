@@ -9,12 +9,8 @@ class Ship
   end
 
   def sunk?
-    if @hit_counter < @health
-      @sunk = false
-    elsif @hit_counter >= @health
+    if @hit_counter >= @health
       @sunk = true
-    else
-    print  "Error"
     end
     @sunk
   end

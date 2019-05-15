@@ -28,9 +28,12 @@ class Turn
     end
       @computer_board.place(ship, trial)
     end
-  def setup(ship, placements)
+
+  def setup(ship)
+    placements = gets.chomp.upcase.split(" ").to_a
     until @player_board.valid_placement?(ship, placements) == true do
       @message.invalid_placements_messasge
+      placements = gets.chomp.upcase.split(" ").to_a
     end
       @player_board.place(ship, placements)
       puts "#{@message.computer_board + @computer_board.render}"
@@ -40,7 +43,7 @@ class Turn
 
   def fire
     keys = @player_board.cells.keys.shuffle!
-    until @player_board.all_sunk? == true && @computer_board.all_sunk? == true do
+    until @player_board.all_sunk? == true || @computer_board.all_sunk? == true do
       @message.take_shot_method
       coordinate = gets.chomp.to_s.upcase
       if !@computer_board.valid_coordinate?(coordinate) then @message.invalid_shot_message
