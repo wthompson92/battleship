@@ -53,17 +53,15 @@ class Turn
         @player_board.cells[keys.pop].fire_upon
         puts "#{@message.computer_board + @computer_board.render}"
         puts "#{@message.player_board + @player_board.render(true)}"
+      end
     end
   end
-end
 
   def end_game
     if @player_board.all_sunk? && !@computer_board.all_sunk?
       puts @message.end_game_message_computer_win
-    elsif @computer_board.all_sunk? && @computer_board.all_sunk?
+    else @computer_board.all_sunk? && !@player_board.all_sunk?
       puts @message.end_game_message_player_win
-    else
-      puts "Error!"
     end
   end
 end
