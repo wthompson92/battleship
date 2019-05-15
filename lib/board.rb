@@ -20,7 +20,7 @@ class Board
   end
 
   def valid_coordinate?(coordinate)
-   @keys.include?(coordinate) && @cells[coordinate].fired_upon? == false 
+   @keys.include?(coordinate) && @cells[coordinate].fired_upon? == false
   end
 
   def valid_placement?(ship, placements)
@@ -42,13 +42,15 @@ class Board
   end
 
   def letters_consecutive?(letters) #(array of strings passed from line 60)
-    if (letters.count == 3) && (letters.last.ord - letters.first.ord == 2) then true
+    if ((letters.count == 3) && (letters.last.ord - letters.first.ord == 2))
+      return  true
     elsif (letters.count == 2) && (letters.last.ord - letters.first.ord == 1) then true
     end
   end
 
   def numbers_consecutive?(numbers) #(array of strings passed from line 60)
-    if (numbers.count == 3) && (numbers.last.to_i - numbers.first.to_i == 2) then true
+    if ((numbers.count == 3) && (numbers.last.to_i - numbers.first.to_i == 2))
+      return true
     elsif (numbers.count == 2) && (numbers.last.to_i - numbers.first.to_i == 1) then  true
     end
   end
@@ -77,5 +79,4 @@ class Board
   def all_sunk?
    @ships.all? {|ship| ship.sunk?}
   end
-
 end
