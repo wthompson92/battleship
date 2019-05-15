@@ -1,21 +1,11 @@
-<<<<<<< HEAD
-class Turn 
-  attr_reader
-
-  def initialize
-
-=======
-
 require './lib/board'
 require 'pry'
-
 
 class Turn
   def initialize(player_board, computer_board, message)
     @player_board = player_board
     @computer_board = computer_board
     @message = message
->>>>>>> 02bec89e15d0f65db34443bb79383941ea662c18
   end
 
   def num_generator
@@ -26,7 +16,7 @@ class Turn
     random_coordinate = @computer_board.cells.keys.shuffle.pop
     letter_or_num = random_coordinate.chars[num_generator]
     possible_placements = @computer_board.cells.keys.select do |cell|
-    cell.include?(letter_or_num)
+      cell.include?(letter_or_num)
     end
   end
 
@@ -36,8 +26,9 @@ class Turn
     until @computer_board.valid_placement?(ship, trial) do
       trial = get_computer_placement_coords.take(number)
     end
-      @computer_board.place(ship, trial)
-    end
+    @computer_board.place(ship, trial)
+  end
+
 
   def setup(ship)
     placements = gets.chomp.upcase.split(" ").to_a
@@ -50,31 +41,31 @@ class Turn
       puts "#{@message.player_board + @player_board.render(true)}"
   end
 
-
   def fire
     keys = @player_board.cells.keys.shuffle!
-    until @player_board.all_sunk? == true || @computer_board.all_sunk? == true do
+    while @player_board.all_sunk? == false && @computer_board.all_sunk? == false do
       @message.take_shot_method
       coordinate = gets.chomp.to_s.upcase
-      if !@computer_board.valid_coordinate?(coordinate) then @message.invalid_shot_message
+      if !@computer_board.valid_coordinate?(coordinate)
+        @message.invalid_shot_message
+
       else
         @computer_board.cells[coordinate].fire_upon
-        puts "#{@message.computer_board + @computer_board.render}"
+        print "#{@message.computer_board + @computer_board.render(false)}"
         @player_board.cells[keys.pop].fire_upon
-        puts "#{@message.computer_board + @computer_board.render}"
+        puts "#{@message.computer_board + @computer_board.render(false)}"
         puts "#{@message.player_board + @player_board.render(true)}"
       end
     end
   end
-<<<<<<< HEAD
-=======
 
   def end_game
-    if @player_board.all_sunk? && !@computer_board.all_sunk?
-      puts @message.end_game_message_computer_win
-    else @computer_board.all_sunk? && !@player_board.all_sunk?
-      puts @message.end_game_message_player_win
+    if @player_board.all_sunk? == true
+      print @message.end_game_message_computer_win
+    elsif  @computer_board.all_sunk? == true
+      print @message.end_game_message_player_win
+    else
+      print "Draw!"
     end
   end
->>>>>>> 02bec89e15d0f65db34443bb79383941ea662c18
 end
