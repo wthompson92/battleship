@@ -1,5 +1,9 @@
 require 'pry'
 
+require './lib/board'
+require 'pry'
+
+
 class Turn
   def initialize(player_board, computer_board, message)
     @player_board = player_board
@@ -28,6 +32,7 @@ class Turn
     @computer_board.place(ship, trial)
   end
 
+
   def setup(ship)
     placements = gets.chomp.upcase.split(" ").to_a
     until @player_board.valid_placement?(ship, placements) == true do
@@ -39,6 +44,7 @@ class Turn
       puts "#{@message.player_board + @player_board.render(true)}"
   end
 
+
   def fire
     keys = @player_board.cells.keys.shuffle!
     until @player_board.all_sunk? == true || @computer_board.all_sunk? == true do
@@ -46,6 +52,7 @@ class Turn
       coordinate = gets.chomp.to_s.upcase
       if !@computer_board.valid_coordinate?(coordinate)
         @message.invalid_shot_message
+
       else
         @computer_board.cells[coordinate].fire_upon
         puts "#{@message.computer_board + @computer_board.render}"
