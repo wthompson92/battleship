@@ -30,7 +30,7 @@ class Board
     return false if placements.any? {|placement| !valid_coordinate?(placement)}
     return false if placements.any? {|placement| !@cells[placement].empty?}
     return true if letters.uniq.count == 1 && numbers_consecutive?(numbers)
-return true if numbers.uniq.count == 1 && letters_consecutive?(letters)
+    return true if numbers.uniq.count == 1 && letters_consecutive?(letters)
   end
 
   def get_letters(placements) #passing thru an array

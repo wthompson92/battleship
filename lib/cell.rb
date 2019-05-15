@@ -28,7 +28,7 @@ class Cell
  end
 
  def render(reveal = true)
-   if @fired_upon == false && empty? == true && reveal = false 
+   if @fired_upon == false && empty? == true
      @coordinate = "."
    elsif @fired_upon == false  && empty? == false && reveal == true
     @coordinate = "S"
