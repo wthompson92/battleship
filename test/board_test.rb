@@ -99,20 +99,16 @@ class BoardTest < Minitest::Test
     cell_1 = @board.cells["A1"]
     cell_2 = @board.cells["A2"]
     cell_3 = @board.cells["A3"]
-
     expected = cell_1.ship
     actual = @cruiser
-
     assert_equal expected, actual
 
     actual = @cruiser
     expected = cell_2.ship
-
     assert_equal expected, actual
 
     actual = @cruiser
     expected = cell_3.ship
-
     assert assert_equal expected, actual
 
     actual = true
@@ -136,7 +132,6 @@ class BoardTest < Minitest::Test
     @board.place(@cruiser, ["A1", "A2", "A3"])
     expected = " 1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n"
     actual = @board.render
-
     assert_equal expected, actual
   end
-  end
+end

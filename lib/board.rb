@@ -4,11 +4,14 @@ require 'pry'
 
 class Board
   attr_reader :cells
-  def initialize
+  def initialize(reveal)
     @keys = []
     @column = ("A".."D")
     @row = (1..4)
     @cells = {}
+    @ships = []
+    @reveal = reveal
+
   end
 
   def create_board
@@ -61,19 +64,18 @@ return true if numbers.uniq.count == 1 && letters_consecutive?(letters)
     end
   end
 
-  def render(reveal = false )
-   board = []
-   array_of_cells = []
-   @cells.map {|key, value| array_of_cells << (" " + value.render(true))}
-
-   x_axis = @row.to_a.map {|num| board << num.to_s + " " }
-   board.push(" ")
-   y_axis = @column.zip(array_of_cells.each_slice(4))
-   y_axis.each{|letter| board <<  "\n" + letter.join}
-   board.push("\n")
-
-   board.unshift(" ")
-   board.join
+  def render
+    board = []
+    array_of_cells = []
+    @cells.each {|key, value| array_of_cells << (" " + value.render(@reveal))}
+    x_axis = @row.to_a.map {|num| board << num.to_s + " " }
+    board.push(" ")
+    y_axis = @column.zip(array_of_cells.each_slice(4))
+    y_axis.each{|letter| board <<  "\n" + letter.join}
+    board.push("\n")
+    board.unshift("  ")
+    board.unshift("\n")
+    board.join
   end
 
   def all_sunk?
