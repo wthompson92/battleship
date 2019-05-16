@@ -1,7 +1,5 @@
 class Cell
-
  attr_reader :coordinate, :ship
-
 
  def initialize(coordinate)
    @coordinate = coordinate
@@ -27,17 +25,12 @@ class Cell
    end
  end
 
- def render(reveal = true)
-   if @fired_upon == false && empty? == true
-     @coordinate = "."
-   elsif @fired_upon == false  && empty? == false && reveal == true
-    @coordinate = "S"
-   elsif @fired_upon == true && empty? == true
-     @coordinate = "M"
-   elsif @fired_upon == true && !empty? && @ship.sunk? == false
-     @coordinate = "H"
-   elsif @fired_upon == true && !empty? && @ship.sunk? == true
-     @coordinate = "X"
+ def render(reveal = false)
+   if !@fired_upon && (empty? || !reveal) then "."
+   elsif !@fired_upon && (!empty? && reveal) then  "S"
+   elsif @fired_upon && empty? then "M"
+   elsif @fired_upon  && !empty? && !@ship.sunk? then "H"
+   elsif @fired_upon && !empty? && @ship.sunk? then "X"
    end
  end
 end

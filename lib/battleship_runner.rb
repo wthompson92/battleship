@@ -5,12 +5,11 @@ require './lib/messages'
 require './lib/turn'
 require 'pry'
 
-
 message = Messages.new
 message.main_menu
 input = gets.chomp
   if input == "q"
-    "Leaving Battle"
+    puts "Leaving Battleship"
   end
 while input == "p"
   loop do
@@ -18,11 +17,10 @@ cruiser = Ship.new("Cruiser", 3)
 submarine =  Ship.new("Submarine", 2)
 cruiser_2 = Ship.new("Cruiser", 3)
 submarine_2 =  Ship.new("Submarine", 2)
-player_board = Board.new
-computer_board = Board.new
+player_board = Board.new(true)
+player_board.cells.values.map {|key, value| value.render}
+computer_board = Board.new(false)
 turn = Turn.new(player_board, computer_board, message)
-message.main_menu
-message.play_or_leave(input)
 player_board.create_board
 computer_board.create_board
 turn.place_comp_ships(cruiser_2)

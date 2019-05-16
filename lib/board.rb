@@ -4,12 +4,13 @@ require 'pry'
 
 class Board
   attr_reader :cells
-  def initialize
+  def initialize(reveal)
     @keys = []
     @column = ("A".."D")
     @row = (1..4)
     @cells = {}
     @ships = []
+    @reveal = reveal
   end
 
   def create_board
@@ -62,10 +63,10 @@ class Board
     end
   end
 
-  def render(reveal = false )
+  def render
     board = []
     array_of_cells = []
-    @cells.map {|key, value| array_of_cells << (" " + value.render(true))}
+    @cells.each {|key, value| array_of_cells << (" " + value.render(@reveal))}
     x_axis = @row.to_a.map {|num| board << num.to_s + " " }
     board.push(" ")
     y_axis = @column.zip(array_of_cells.each_slice(4))

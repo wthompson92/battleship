@@ -37,21 +37,23 @@ class Turn
     end
       @player_board.place(ship, placements)
       puts "#{@message.computer_board + @computer_board.render}"
-      puts "#{@message.player_board + @player_board.render(true)}"
+      puts "#{@message.player_board + @player_board.render}"
   end
 
   def fire
     keys = @player_board.cells.keys.shuffle!
-    until @player_board.all_sunk? == true || @computer_board.all_sunk? == true do
+    until @player_board.all_sunk? || @computer_board.all_sunk? do
       @message.take_shot_method
       coordinate = gets.chomp.to_s.upcase
       if !@computer_board.valid_coordinate?(coordinate) then @message.invalid_shot_message
       else
         @computer_board.cells[coordinate].fire_upon
-        puts "#{@message.computer_board + @computer_board.render}"
+        print "#{@message.computer_board + @computer_board.render}"
+         # @messages.player_shot_messages(@computer_board, coordinate)
         @player_board.cells[keys.pop].fire_upon
-        puts "#{@message.computer_board + @computer_board.render}"
-        puts "#{@message.player_board + @player_board.render(true)}"
+        print "#{@message.computer_board + @computer_board.render}"
+        print "#{@message.player_board + @player_board.render}"
+
       end
     end
   end
