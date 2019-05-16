@@ -18,36 +18,38 @@ class Messages
   end
 
   def prompt_placement_sub
-    print "\n Great! Now enter the squares for the Submarine (2 spaces):\n>"
+    print "\n Now enter the squares for the Submarine (2 spaces):\n>"
   end
 
   def invalid_placements_messasge
-    print "Those are invalid coordinates, try again\n"
+    print "\nThose are invalid coordinates, try again\n"
   end
 
   def take_shot_method
-    print "\nEnter the coordinate for your shot: \n > "
+    print "\n\nEnter the coordinate for your shot: \n > "
   end
 
   def invalid_shot_message
-    print "That is an invalid coordinate to fire on. Please try again.\n"
+    print "\nThat is an invalid coordinate to fire on. Please try again.\n"
   end
 
   def player_shot_messages(computer_board, coordinate)
-    status = computer_board.cells[coordinate].render(false)
+    ship = computer_board.cells[coordinate].ship
+    status = computer_board.cells[coordinate].render
     case status
-    when "M" then p "Your shot on #{coordinate} was a miss."
-    when "H" then p "Your shot on #{coordinate} was a hit on #{status.ship}"
-    when "X" then p "Your shot on #{coordinate} was a hit and has sunk #{status.ship}."
+    when "M" then  "\n* Your shot on #{coordinate} was a miss. *"
+    when "H" then  "\n* Your shot on #{coordinate} was a hit on #{ship.name}! *"
+    when "X" then "\n* Your shot on #{coordinate} was a hit and has sunk #{ship.name}. *"
     end
   end
 
-  def computer_shot_messages(player_board, coordinate)
-    status = player_board.cells[coordinate].render
+  def computer_shot_messages(player_board, coord_2)
+    ship = player_board.cells[coord_2].ship
+    status = player_board.cells[coord_2].render
     case status
-    when "M" then  p "My shot on #{coordinate} was a miss."
-    when "H" then p "My shot on #{coordinate} was a hit on #{status.ship}"
-    when "X" then p "My shot on #{coordinate} was a hit and has sunk #{status.ship}."
+    when "M" then "\n* My shot on #{coord_2} was a miss. *"
+    when "H" then "\n* My shot on #{coord_2} was a hit on #{ship.name}! *"
+    when "X" then "\n* My shot on #{coord_2} was a hit and has sunk #{ship.name}! *"
     end
   end
 

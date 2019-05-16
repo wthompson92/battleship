@@ -9,7 +9,7 @@ message = Messages.new
 message.main_menu
 input = gets.chomp
   if input == "q"
-    puts "Leaving Battleship"
+    print "\nLeaving Battleship\n"
   end
 while input == "p"
   loop do
@@ -18,11 +18,10 @@ submarine =  Ship.new("Submarine", 2)
 cruiser_2 = Ship.new("Cruiser", 3)
 submarine_2 =  Ship.new("Submarine", 2)
 player_board = Board.new(true)
-player_board.cells.values.map {|key, value| value.render}
 computer_board = Board.new(false)
-turn = Turn.new(player_board, computer_board, message)
 player_board.create_board
 computer_board.create_board
+turn = Turn.new(player_board, computer_board, message)
 turn.place_comp_ships(cruiser_2)
 turn.place_comp_ships(submarine_2)
 print computer_board.render

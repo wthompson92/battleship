@@ -48,12 +48,12 @@ class Turn
       if !@computer_board.valid_coordinate?(coordinate) then @message.invalid_shot_message
       else
         @computer_board.cells[coordinate].fire_upon
-        print "#{@message.computer_board + @computer_board.render}"
-         # @messages.player_shot_messages(@computer_board, coordinate)
+        coord_2 = keys.last
         @player_board.cells[keys.pop].fire_upon
         print "#{@message.computer_board + @computer_board.render}"
         print "#{@message.player_board + @player_board.render}"
-
+        print @message.player_shot_messages(@computer_board, coordinate)
+        print @message.computer_shot_messages(@player_board, coord_2)
       end
     end
   end
