@@ -99,20 +99,16 @@ class BoardTest < Minitest::Test
     cell_1 = @board.cells["A1"]
     cell_2 = @board.cells["A2"]
     cell_3 = @board.cells["A3"]
-
     expected = cell_1.ship
     actual = @cruiser
-
     assert_equal expected, actual
 
     actual = @cruiser
     expected = cell_2.ship
-
     assert_equal expected, actual
 
     actual = @cruiser
     expected = cell_3.ship
-
     assert assert_equal expected, actual
 
     actual = true
@@ -138,4 +134,4 @@ class BoardTest < Minitest::Test
     actual = @board.render
     assert_equal expected, actual
   end
-  end
+end
