@@ -40,7 +40,6 @@ class Turn
       puts "#{@message.player_board + @player_board.render(true)}"
   end
 
-
   def fire
     keys = @player_board.cells.keys.shuffle!
     until @player_board.all_sunk? == true || @computer_board.all_sunk? == true do

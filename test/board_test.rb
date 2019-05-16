@@ -136,7 +136,6 @@ class BoardTest < Minitest::Test
     @board.place(@cruiser, ["A1", "A2", "A3"])
     expected = " 1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n"
     actual = @board.render
-
     assert_equal expected, actual
   end
   end

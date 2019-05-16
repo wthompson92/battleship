@@ -41,20 +41,20 @@ end
     print "My shot on #{coordinate} was a miss."
   end
 
-  def player_shot_hit(coordinate)
-      print "Your shot on #{coordinate} was a hit on #{coordinate.ship}."
+  def player_shot_hit(cell, coordinate)
+      print "Your shot on #{coordinate} was a hit on #{cell[cooridnate].ship}."
   end
 
-  def computer_shot_hit
-    print "My shot on #{coordinate} was a hit on #{coordinate.ship}."
+  def computer_shot_hit(cell, coordinate)
+    print "My shot on #{coordinate} was a hit on #{cell[cooridnate].ship}."
   end
 
-  def player_shot_sunk_shit(coordinate)
-    print "Your shot on #{coordinate} was a hit and has sunk the #{coordinate.ship}."
+  def player_shot_sunk_ship(cell, coordinate)
+    print "Your shot on #{coordinate} was a hit and has sunk the #{cell[cooridnate].ship}."
   end
 
-  def computer_shot_sunk(coordinate)
-    print "My shot on #{coordinate} was a hit and has sunk #{ship.ship}."
+  def computer_shot_sunk(cell, coordinate)
+    print "My shot on #{coordinate} was a hit and has sunk #{cell[cooridnate].ship}."
   end
 
   def end_game_message_player_win
